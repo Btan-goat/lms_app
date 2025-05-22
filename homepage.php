@@ -12,6 +12,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Library Management System</a>
     <a class="btn btn-outline-light ms-auto" href="borrow.html">Borrow Books</a>
+    <a class="btn btn-outline-light ms-2" href="logout.php">Logout</a>
     <div class="dropdown ms-2">
       <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-person-circle"></i> <!-- Bootstrap icon -->
