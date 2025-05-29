@@ -111,7 +111,7 @@ if(isset($_POST['update_authors'])) {
     <div class="mb-3">
       <label for="authorNationality" class="form-label">Nationality</label>
       <select class="form-select" name="author_nat" id="authorNationality" required>
-        <option value="" selected><?php echo $data['author_nat'] ?></option>
+        <option disabled selected><?php echo $data['author_nat'] ?></option>
         <option value="Filipino">Filipino</option>
         <option value="American">American</option>
         <option value="British">British</option>
