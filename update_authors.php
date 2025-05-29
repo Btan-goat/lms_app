@@ -2,38 +2,45 @@
 
 require_once('classes/database.php');
 $con = new database();
-
-$data = $con->opencon();
+session_start();
 $sweetAlertConfig = "";
 
-if(isset($_POST['add_authors'])) {
+if (empty($id = $_POST ['id'])) {
+    header('location:index.php');
+} else {
+    $id = $_POST['id'];
+    $data = $con->viewAuthorsID($id);
+}
+
+if(isset($_POST['update_authors'])) {
+    $id = $_POST['id'];
     $firstname = $_POST['author_FN'];
     $lastname = $_POST['author_LN'];
     $birthday = $_POST['author_birthday'];
     $nationality = $_POST['author_nat'];
 
-    $author_id = $con->insertAuthor($firstname, $lastname, $birthday, $nationality);
+    $author_id = $con->updateAuthor($id, $firstname, $lastname, $birthday, $nationality);
     
     if ($author_id) {
         $sweetAlertConfig = "
           <script>
             Swal.fire({
               icon: 'success',
-              title: 'Added Successful',
-              text: 'Author has been addded successfully!',
+              title: 'Update Successful',
+              text: 'Author has been updated successfully!',
               confirmButtonText: 'OK'
             }).then((result) => {
               if (result.isConfirmed) {
-                window.location.href = 'add_authors.php';
+                window.location.href = 'admin_homepage.php';
               }
             });
           </script>"; 
       } else {
-        $_SESSION ['error'] = "Error occurred while inserting author. Please try again.";
+        $_SESSION ['error'] = "Error occurred while updating author. Please try again.";
       }
   } else {
       $_SESSION ['error'] = "Sorry, there was an error signing up.";
-  }
+}
 
 ?>
 
@@ -87,25 +94,25 @@ if(isset($_POST['add_authors'])) {
 <div class="container my-5 border border-2 rounded-3 shadow p-4 bg-light">
 
 
-  <h4 class="mt-5">Add New Author</h4>
+  <h4 class="mt-5">Update Existing Author</h4>
   <form method="post" action="" novalidate>
     <div class="mb-3">
       <label for="authorFirstName" class="form-label">First Name</label>
-      <input type="text" name="author_FN" class="form-control" id="authorFirstName" required>
+      <input type="text" name="author_FN" value="<?php echo $data['author_FN']; ?>" class="form-control" id="authorFirstName" required>
     </div>
     <div class="mb-3">
       <label for="authorLastName" class="form-label">Last Name</label>
-      <input type="text" name="author_LN" class="form-control" id="authorLastName" required>
+      <input type="text" name="author_LN" value="<?php echo $data['author_LN']; ?>" class="form-control" id="authorLastName" required>
     </div>
     <div class="mb-3">
       <label for="authorBirthYear" class="form-label">Birth Date</label>
-      <input type="date" name="author_birthday" class="form-control" id="authorBirthYear" max="<?= date('Y-m-d') ?>" required>
+      <input type="date" name="author_birthday" value="<?php echo isset($data['author_birthday']) ? date('Y-m-d', strtotime($data['author_birthday'])) : ''; ?>" class="form-control" id="authorBirthYear" max="<?= date('Y-m-d') ?>" required>
     </div>
     <div class="mb-3">
       <label for="authorNationality" class="form-label">Nationality</label>
       <select class="form-select" name="author_nat" id="authorNationality" required>
-        <option value="" disabled selected>Select Nationality</option>
-        <option value="American">Filipino</option>
+        <option value="" disabled selected><?php echo $data['author_nat'] ?></option>
+        <option value="Filipino">Filipino</option>
         <option value="American">American</option>
         <option value="British">British</option>
         <option value="Canadian">Canadian</option>
@@ -121,7 +128,8 @@ if(isset($_POST['add_authors'])) {
         <option value="Other">Other</option>
       </select>
     </div>
-    <button type="submit" name="add_authors" class="btn btn-primary">Add Author</button>
+    <input type="hidden" name="id" value="<?php echo $data['author_id']; ?>">
+    <button type="submit" name="update_authors" class="btn btn-primary">Update Author</button>
   </form>
 </div>
 <script src="./bootstrap-5.3.3-dist/js/bootstrap.js"></script>

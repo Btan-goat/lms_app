@@ -111,4 +111,59 @@ class database {
         }
     }
 
+    function viewAuthors() {
+        $con = $this->opencon();
+        return $con->query("SELECT * FROM Authors")->fetchAll();
+    }
+
+    function viewAuthorsID($id) {
+        $con = $this->opencon();
+        $stmt = $con->prepare("SELECT * FROM Authors WHERE author_id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function updateAuthor($author_id, $firstname, $lastname, $birthday, $nationality) {
+        try {
+            $con = $this->opencon();
+            $con->beginTransaction();
+            $query = $con->prepare("UPDATE authors SET author_FN=?, author_LN=?, author_birthday=?, author_nat=? WHERE author_id=?");
+            $query->execute([$firstname, $lastname, $birthday, $nationality, $author_id]);
+            // Update successful
+            $con->commit();
+            return true;
+        } catch (PDOException $e) {
+            // Handle the exception (e.g., log error, return false, etc.)
+            $con->rollBack();
+            return false; // Update failed
+        }
+    }
+
+    function viewGenres() {
+        $con = $this->opencon();
+        return $con->query("SELECT * FROM Genres")->fetchAll();
+    }
+
+    function viewGenresID($id) {
+        $con = $this->opencon();
+        $stmt = $con->prepare("SELECT * FROM Genres WHERE genre_id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function updateGenre($genre_id, $genrename) {
+        try {
+            $con = $this->opencon();
+            $con->beginTransaction();
+            $query = $con->prepare("UPDATE genres SET genre_name=? WHERE genre_id=?") ;
+            $query->execute([$genrename, $genre_id]);
+
+            $con->commit();
+            return true;
+        } catch (PDOException $e) {
+            $con->rollBack();
+            return false;
+        }
+    }
+
 }

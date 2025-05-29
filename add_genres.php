@@ -26,7 +26,7 @@ if(isset($_POST['add_genre'])) {
             });
           </script>"; 
       } else {
-        $_SESSION ['error'] = "Error occurred while inserting address. Please try again.";
+        $_SESSION ['error'] = "Error occurred while inserting genre. Please try again.";
       }
   } else {
       $_SESSION ['error'] = "Sorry, there was an error signing up.";
