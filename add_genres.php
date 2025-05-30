@@ -41,7 +41,6 @@ if(isset($_POST['add_genre'])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"> <!-- Correct Bootstrap Icons CSS -->
   <link rel="stylesheet" href="./package/dist/sweetalert2.min.css"> 
   <title>Genres</title>
 </head>
@@ -93,8 +92,6 @@ if(isset($_POST['add_genre'])) {
   </form>
 </div>
 <script src="./bootstrap-5.3.3-dist/js/bootstrap.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> <!-- Add Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script> <!-- Correct Bootstrap JS -->
 <script src="./package/dist/sweetalert2.min.js"></script>
 <?php echo $sweetAlertConfig; ?>
 </body>

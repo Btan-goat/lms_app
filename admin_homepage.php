@@ -1,8 +1,6 @@
 <?php 
 
 session_start();
-require_once('classes/database.php');
-$con = new database();
 
 if(!isset($_SESSION['user_id'])) {
   header('Location: index.php');
@@ -11,6 +9,8 @@ if(!isset($_SESSION['user_id'])) {
   header('Location: homepage.php');
   exit();
 }
+require_once('classes/database.php');
+$con = new database();
 
 ?>
 
@@ -29,7 +29,7 @@ if(!isset($_SESSION['user_id'])) {
           <a class="navbar-brand" href="#">Library Management System (Admin)</a>
           <a class="btn btn-outline-light ms-auto" href="add_authors.php">Add Authors</a>
           <a class="btn btn-outline-light ms-2" href="add_genres.php">Add Genres</a>
-          <a class="btn btn-outline-light ms-2" href="add_books.html">Add Books</a>
+          <a class="btn btn-outline-light ms-2" href="add_books.php">Add Books</a>
           <a class="btn btn-outline-light ms-2" href="logout.php">Logout</a>
           <div class="dropdown ms-2">
             <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -298,7 +298,5 @@ if(!isset($_SESSION['user_id'])) {
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> <!-- Add Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script> <!-- Correct Bootstrap JS -->
 </body>
 </html>
